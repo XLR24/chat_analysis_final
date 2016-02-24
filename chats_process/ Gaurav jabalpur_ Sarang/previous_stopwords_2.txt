@@ -1,0 +1,10 @@
+a 1
+on 1
+and 1
+be 3
+it 1
+me 2
+to 6
+too 1
+the 2
+was 1

@@ -1,0 +1,5 @@
+serial no,average_word,word_length,up,low_ratio,smiley_count,stopword_usage,punctuation,msg_length,acro_line,elongation_vowel,suspension_point,imitation_rate,word_length,media_url,response_time
+1,5,2,16,1,0,0,-1,17,0,0,0,0,2,0,4522740.0
+2,2,4,12,2,0,0,-1,14,0,0,0,0.4,4,0,548700.0
+3,3,1,6,1,0,1,-1,7,2,0,0,1.5,1,0,240.0
+4,3,1,6,1,0,1,-1,7,2,0,0,1.0,1,0,4380.0

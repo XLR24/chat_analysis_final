@@ -1,20 +1,25 @@
 from collections import defaultdict
-
-with open('1_chat.txt') as f:
-    lines = f.read().splitlines()
-
+import csv
+import os
+import sys
+f = sys.argv
 result = defaultdict(int)
 
-for line in lines:
-	words = line.split()
-	for word in words:
-		result[word] +=1
+def freq_words(fi,first,second,num):
+	
+	f = open(fi, 'r')
 
-s = open('freq_dist_1.txt','wb')
+	for line in f:
+		line=line.split()
+    
+		for word in line:
+			result[word] +=1			
 
-for key, value in result.items():
-	s.write(str(key) + " -> " + str(value))
-	s.write("\n")
+	s = open('./chats_process/'+str(first)+'_'+str(second)+'/'+'freq_dist_'+str(num)+'.txt','wb')
+
+	for key, value in result.items():
+		s.write(str(key) + " -> " + str(value))
+		s.write("\n")
 
 
 		

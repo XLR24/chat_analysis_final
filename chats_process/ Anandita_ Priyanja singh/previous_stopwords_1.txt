@@ -1,0 +1,7 @@
+a 3
+off 2
+no 1
+to 17
+so 1
+in 1
+the 4

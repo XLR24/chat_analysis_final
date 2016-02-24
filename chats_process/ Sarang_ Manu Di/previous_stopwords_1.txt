@@ -1,0 +1,8 @@
+me 8
+do 2
+us 1
+to 14
+as 1
+so 1
+too 16
+the 2

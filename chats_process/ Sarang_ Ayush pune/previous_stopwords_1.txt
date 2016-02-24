@@ -1,0 +1,8 @@
+me 5
+do 1
+no 1
+of 1
+is 3
+it 1
+to 2
+too 11
