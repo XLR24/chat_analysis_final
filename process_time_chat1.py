@@ -6,7 +6,7 @@ from datetime import timedelta
 import time
 import csv
 
-def time_chat():
+def time_chat_windows():
 
 	path = './raw/windows/'
 	for filename in os.listdir(path):
@@ -83,7 +83,9 @@ def time_chat():
 			date_session=datetime.strptime(line,"::: %j-%m-%Y %H:%M:%S:\n")
 			date3=date_session
 			if prev==0:
-				date1 = datetime.strptime(line,"::: %j-%m-%Y %H:%M:%S:\n")				
+				date1 = datetime.strptime(line,"::: %j-%m-%Y %H:%M:%S:\n")	
+				date3 = datetime.strptime(line,"::: %j-%m-%Y %H:%M:%S:\n")
+			
 				prev=1
 				prev_turn=p
 				prev_date_session=date_session
@@ -156,7 +158,7 @@ def time_chat():
 			seconds = line[2]
 			#seconds = seconds.replace('\n', '').replace('\r', '')
 
-			print seconds
+			#print seconds
 			
 			if str(fir)=='1':
 				z2.write(seconds)
@@ -220,5 +222,5 @@ def time_chat():
 
 		
 if __name__ == "__main__":
-	time_chat()
+	time_chat_windows()
 		
