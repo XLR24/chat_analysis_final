@@ -16,11 +16,15 @@ from suspension_point import suspension_point
 from imitation_rate import imitation_rate
 from freq_dist1 import freq_words
 from media_url1 import media_url
+from process_time import process_time
+from main_after_time import main_after_time
+
 import sys
 import os
 #take file inp
 
 path = './chats_process'
+
 for filename in os.listdir(path):
 		
 	#f = open('./raw/'+filename, 'r')
@@ -77,13 +81,13 @@ for filename in os.listdir(path):
 	average_word('./chats_process/'+str(first)+'_'+str(second)+'/'+first+'.txt',str(first),str(second),1)
 	#creates a text file named number_word_1 which contains number of word in each line.
 	average_word('./chats_process/'+str(first)+'_'+str(second)+'/'+second+'.txt',str(first),str(second),2)
-	#print "average_word_feature extracted"
+	print "average_word_feature extracted"
 	
 	#second feature """word length per line"''
 	word_length('./chats_process/'+str(first)+'_'+str(second)+'/'+first+'.txt',str(first),str(second),1)
 	#creates a text file named word_length_1 which contains number of word in each line.
 	word_length('./chats_process/'+str(first)+'_'+str(second)+'/'+second+'.txt',str(first),str(second),2)
-	#print "word_length_feature extracted"
+	print "word_length_feature extracted"
 
 	
 	#third feature ""uppercase_lowrcase ratio""""
@@ -152,4 +156,7 @@ for filename in os.listdir(path):
 
 	media_url('./chats_process/'+str(first)+'_'+str(second)+'/'+first+'.txt',str(first),str(second),1)
 	media_url('./chats_process/'+str(first)+'_'+str(second)+'/'+second+'.txt',str(first),str(second),2)
-	
+
+
+process_time()
+main_after_time()
