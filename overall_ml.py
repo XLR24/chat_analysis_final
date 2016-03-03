@@ -178,9 +178,11 @@ def main():
 
 		# SVM
 
-		clf = svm.SVC()
+		clf = svm.SVC(probability=True)
 		clf.fit(train_set, labels_train)
+		#clf.decision_function(test_set)
 		results_SVM = clf.predict(test_set)
+		a = clf.predict_proba(test_set)
 		acc_svm = getAccuracy(results_SVM,labels_test)
 		print "accuracy_svm= " + str(acc_svm)
 
@@ -189,6 +191,7 @@ def main():
 		neigh = KNeighborsClassifier(n_neighbors=3)
 		neigh.fit(train_set, labels_train)
 		results_KNN=neigh.predict(test_set)
+		b = neigh.predict_proba(test_set)
 		acc_knn = getAccuracy(results_KNN,labels_test)
 		print "accuracy_knn= " + str(acc_knn)
 
@@ -197,6 +200,7 @@ def main():
 		clf = GaussianNB()
 		clf.fit(train_set, labels_train)
 		results_GausianNB=clf.predict(test_set)
+		c = clf.predict_proba(test_set)
 		acc_gausNB = getAccuracy(results_GausianNB,labels_test)
 		print "accuracy_gausNB= " + str(acc_gausNB)
 
@@ -205,6 +209,7 @@ def main():
 		clf = BernoulliNB()
 		clf.fit(train_set, labels_train)
 		results_BernoulliNB=clf.predict(test_set)
+		d = clf.predict_proba(test_set)
 		acc_BernoNB = getAccuracy(results_BernoulliNB,labels_test)
 		print "accuracy_bernoNB= " + str(acc_BernoNB)
 
@@ -213,6 +218,7 @@ def main():
 		clf = RandomForestClassifier(n_estimators=10)
 		clf.fit(train_set,labels_train)
 		results_randomforest=clf.predict(test_set)
+		e =  clf.predict_proba(test_set)
 		acc_random_F = getAccuracy(results_randomforest,labels_test)
 		print "accuracy_random_forest= " + str(acc_random_F)
 
@@ -225,7 +231,20 @@ def main():
 
 		#print "\n"
 		#print labels_test
-	
+		s = open('results.txt','a')
+		for a1,b1,c1,d1,e1 in zip(a,b,c,d,e):
+			
+			s.write("%s\n" % a1)
+			s.write("%s\n" % b1)
+			s.write("%s\n" % c1)
+			s.write("%s\n" % d1)
+			s.write("%s\n" % e1)
+			
+			#s.write(b1)
+			#s.write(str(c1)) 
+			#s.write(d1) 
+			#s.write(e1)
+			s.write("................\n")
 		'''
 		print('Split {0} rows into train={1} and test={2} rows').format(len(dataset), len(trainingSet), len(testSet))
 		# prepare model
