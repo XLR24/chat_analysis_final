@@ -43,7 +43,10 @@ def mean(numbers):
  
 def stdev(numbers):
 	avg = mean(numbers)
-	variance = sum([pow(x-avg,2) for x in numbers])/float(len(numbers)-1)
+	abcd = float(len(numbers)-1)
+	if abcd ==0:
+		abcd=1
+	variance = sum([pow(x-avg,2) for x in numbers])/ abcd
 	return math.sqrt(variance)
  
 def summarize(dataset):
@@ -146,6 +149,8 @@ def seperate1(test_copy):
 path = './chats_process'
 def main():
 	for filename in os.listdir(path):
+		
+		print filename
 		t = path+"/"+filename+"/train.csv"
 		splitRatio = .5
 		dataset = loadCsv(t)
