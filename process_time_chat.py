@@ -6,7 +6,7 @@ from datetime import timedelta
 import time
 import csv
 
-def time_chat():
+def time_chat_android():
 
 	path = './raw/android/'
 	for filename in os.listdir(path):
@@ -86,9 +86,10 @@ def time_chat():
 			line = line[a:]
 			
 			date_session=datetime.strptime(line,"::: %m/%d/%Y, %I:%M %p\n")
-
+			
 			if prev==0:
-				date1 = datetime.strptime(line,"::: %m/%d/%Y, %I:%M %p\n")				
+				date1 = datetime.strptime(line,"::: %m/%d/%Y, %I:%M %p\n")
+				date3 = datetime.strptime(line,"::: %m/%d/%Y, %I:%M %p\n")				
 				prev=1
 				prev_turn=p
 				prev_date_session=date_session
@@ -96,7 +97,7 @@ def time_chat():
 
 			elif prev==1 and p==prev_turn:
 				date3 = datetime.strptime(line,"::: %m/%d/%Y, %I:%M %p\n")
-
+				prev_turn=p
 				z1.write( str(prev_turn)+  " " + str(delta1) + "\n")
 			else:
 				date2 = datetime.strptime(line,"::: %m/%d/%Y, %I:%M %p\n")
@@ -161,7 +162,7 @@ def time_chat():
 			seconds = line[2]
 			#seconds = seconds.replace('\n', '').replace('\r', '')
 
-			print seconds
+			#print seconds
 			
 			if str(fir)=='1':
 				z2.write(seconds)
@@ -226,5 +227,5 @@ def time_chat():
 
 
 if __name__ == "__main__":
-	time_chat()
+	time_chat_android()
 		
