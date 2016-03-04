@@ -168,7 +168,7 @@ def main():
 		predictions = getPredictions(summaries, testSet)
 		acc_NB = getAccuracy1(testSet, predictions)
 
-		print "accuracy_simpleNB= " + str(acc_NB)
+		#print "accuracy_simpleNB= " + str(acc_NB)
 
 		train_set = convert_float(trainset_copy)
 		labels_train = get_labels(trainset_copy)
@@ -184,8 +184,8 @@ def main():
 		results_SVM = clf.predict(test_set)
 		a = clf.predict_proba(test_set)
 		acc_svm = getAccuracy(results_SVM,labels_test)
-		print "accuracy_svm= " + str(acc_svm)
-
+		#print "accuracy_svm= " + str(acc_svm)
+		#print clf.classes_
 		#KNN
 
 		neigh = KNeighborsClassifier(n_neighbors=3)
@@ -193,7 +193,8 @@ def main():
 		results_KNN=neigh.predict(test_set)
 		b = neigh.predict_proba(test_set)
 		acc_knn = getAccuracy(results_KNN,labels_test)
-		print "accuracy_knn= " + str(acc_knn)
+		#print "accuracy_knn= " + str(acc_knn)
+		#print neigh.classes_
 
 		#gausianNB
 
@@ -202,8 +203,8 @@ def main():
 		results_GausianNB=clf.predict(test_set)
 		c = clf.predict_proba(test_set)
 		acc_gausNB = getAccuracy(results_GausianNB,labels_test)
-		print "accuracy_gausNB= " + str(acc_gausNB)
-
+		#print "accuracy_gausNB= " + str(acc_gausNB)
+		#print clf.classes_
 		#BernoiliNB
 
 		clf = BernoulliNB()
@@ -211,8 +212,8 @@ def main():
 		results_BernoulliNB=clf.predict(test_set)
 		d = clf.predict_proba(test_set)
 		acc_BernoNB = getAccuracy(results_BernoulliNB,labels_test)
-		print "accuracy_bernoNB= " + str(acc_BernoNB)
-
+		#print "accuracy_bernoNB= " + str(acc_BernoNB)
+		#print clf.classes_
 		#randomforests
 
 		clf = RandomForestClassifier(n_estimators=10)
@@ -220,9 +221,9 @@ def main():
 		results_randomforest=clf.predict(test_set)
 		e =  clf.predict_proba(test_set)
 		acc_random_F = getAccuracy(results_randomforest,labels_test)
-		print "accuracy_random_forest= " + str(acc_random_F)
-
-		print "-------------\n"
+		#print "accuracy_random_forest= " + str(acc_random_F)
+		#print clf.classes_
+		
 		#print results_SVM
 		#print results_KNN
 		#print results_GausianNB
@@ -232,19 +233,104 @@ def main():
 		#print "\n"
 		#print labels_test
 		s = open('results.txt','a')
+		aa=0
+		pred_results_average=[]
+		pred_results_weight=[]
+		pred_results_majority=[]
+		pred_results_say=[]
+
 		for a1,b1,c1,d1,e1 in zip(a,b,c,d,e):
 			
-			s.write("%s\n" % a1)
-			s.write("%s\n" % b1)
-			s.write("%s\n" % c1)
-			s.write("%s\n" % d1)
-			s.write("%s\n" % e1)
+			say1=max(a1[0],b1[0],c1[0],d1[0],e1[0])
+			say2=max(a1[1],b1[1],c1[1],d1[1],e1[1])
+
+
+			temp1=a1[0]+b1[0]+c1[0]+d1[0]+e1[0]
+			temp2=a1[1]+b1[1]+c1[1]+d1[1]+e1[1]
 			
-			#s.write(b1)
-			#s.write(str(c1)) 
-			#s.write(d1) 
-			#s.write(e1)
-			s.write("................\n")
+			cnt1=0
+			cnt2=0
+
+			if(a1[0]>a1[1]):
+				cnt1+=1
+			else:
+				cnt2+=1
+
+			if(b1[0]>b1[1]):
+				cnt1+=1
+			else:
+				cnt2+=1
+
+			if(c1[0]>c1[1]):
+				cnt1+=1
+			else:
+				cnt2+=1
+
+			if(d1[0]>d1[1]):
+				cnt1+=1
+			else:
+				cnt2+=1
+
+			if(e1[0]>e1[1]):
+				cnt1+=1
+			else:
+				cnt2+=1
+
+			temp3=acc_svm*a1[0]+acc_knn*b1[0]+acc_gausNB*c1[0]+acc_BernoNB*d1[0]+acc_random_F*e1[0]
+			temp4=acc_svm*a1[1]+acc_knn*b1[1]+acc_gausNB*c1[1]+acc_BernoNB*d1[1]+acc_random_F*e1[1]
+
+			temp1/=5
+			temp2/=5
+
+			temp3/=5
+			temp4/=5
+
+			if temp1>temp2:
+				pred_results_average.append(0)
+			else:
+				pred_results_average.append(1)	
+
+			if temp3>temp4:
+				pred_results_weight.append(0)
+			else:
+				pred_results_weight.append(1)	
+
+			if cnt1>cnt2:
+				pred_results_majority.append(0)
+			else:
+				pred_results_majority.append(1)
+
+			if say1>say2:
+				pred_results_say.append(0)
+			else:
+				pred_results_say.append(1)
+
+		final_acc=getAccuracy(pred_results_average,labels_test)
+		final_acc1=getAccuracy(pred_results_weight,labels_test)
+		final_acc2=getAccuracy(pred_results_majority,labels_test)
+		final_acc3=getAccuracy(pred_results_say,labels_test)
+
+
+		print 'final_Acc_average= '+ str(final_acc)
+		print 'final_Acc_weight= '+ str(final_acc1)
+		print 'final_Acc_majority= '+ str(final_acc2)
+		print 'final_Acc_say= '+ str(final_acc3)
+		print 'final_Acc_maxi of algo = '+ str(max(acc_gausNB,acc_random_F,acc_BernoNB,acc_knn,acc_svm))
+		print "-------------\n"
+
+		'''
+		s.write("%s\n" % a1)
+		s.write("%s\n" % b1)
+		s.write("%s\n" % c1)
+		s.write("%s\n" % d1)
+		s.write("%s\n" % e1)
+		
+		#s.write(b1)
+		#s.write(str(c1)) 
+		#s.write(d1) 
+		#s.write(e1)
+		s.write("................\n")
+		'''
 		'''
 		print('Split {0} rows into train={1} and test={2} rows').format(len(dataset), len(trainingSet), len(testSet))
 		# prepare model
