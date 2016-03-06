@@ -16,6 +16,7 @@ from suspension_point import suspension_point
 from imitation_rate import imitation_rate
 from freq_dist1 import freq_words
 from media_url1 import media_url
+
 from process_time import process_time
 from main_after_time import main_after_time
 from overall_feature import overall_feature
@@ -76,75 +77,75 @@ for filename in os.listdir(path):
 	n.close()
 	t1.close()
 	n1.close()
-
 	
-	#first feature to extract ////"""average words per line""""
+	
+	#first feature to extract ////""average words per line""
 	average_word('./chats_process/'+str(first)+'_'+str(second)+'/'+first+'.txt',str(first),str(second),1)
 	#creates a text file named number_word_1 which contains number of word in each line.
 	average_word('./chats_process/'+str(first)+'_'+str(second)+'/'+second+'.txt',str(first),str(second),2)
 	#print "average_word_feature extracted"
 	
-	#second feature """word length per line"''
+	#second feature ""word length per line"''
 	word_length('./chats_process/'+str(first)+'_'+str(second)+'/'+first+'.txt',str(first),str(second),1)
 	#creates a text file named word_length_1 which contains number of word in each line.
 	word_length('./chats_process/'+str(first)+'_'+str(second)+'/'+second+'.txt',str(first),str(second),2)
 	#print "word_length_feature extracted"
 
 	
-	#third feature ""uppercase_lowrcase ratio""""
+	#third feature ""uppercase_lowrcase ratio""
 	ratio('./chats_process/'+str(first)+'_'+str(second)+'/'+first+'.txt',str(first),str(second),1)
 	#creates a text file named word_length_1 which contains number of word in each line.
 	ratio('./chats_process/'+str(first)+'_'+str(second)+'/'+second+'.txt',str(first),str(second),2)
 	#print "ratio_feature extracted"
 
 	
-	#fourth feature """smiley count """every 10 line feature usage
+	#fourth feature ""smiley count ""every 10 line feature usage
 	smiley_count('./chats_process/'+str(first)+'_'+str(second)+'/'+first+'.txt',str(first),str(second),1)
 	smiley_count('./chats_process/'+str(first)+'_'+str(second)+'/'+second+'.txt',str(first),str(second),2)
 	#print "smiley count extracted"
 	
 
-	#fifth feature """stopwaord usagee in a line""""every 10 line feature
+	#fifth feature ""stopwaord usagee in a line""every 10 line feature
 	stopword_usage('./chats_process/'+str(first)+'_'+str(second)+'/'+first+'.txt',str(first),str(second),1)
 	stopword_usage('./chats_process/'+str(first)+'_'+str(second)+'/'+second+'.txt',str(first),str(second),2)
 	#print "stopword feature extracted"
 	
 	
-	#sixth feature """punchuation usage""""
+	#sixth feature""punchuation usage""
 	punctuation('./chats_process/'+str(first)+'_'+str(second)+'/'+first+'.txt',str(first),str(second),1)
 	punctuation('./chats_process/'+str(first)+'_'+str(second)+'/'+second+'.txt',str(first),str(second),2)
 	#print "punctuation_feature extracted"
 
 	
-	#seventh feature """message length ""
+	#seventh feature ""message length ""
 	msg_length('./chats_process/'+str(first)+'_'+str(second)+'/'+first+'.txt',str(first),str(second),1)
 	msg_length('./chats_process/'+str(first)+'_'+str(second)+'/'+second+'.txt',str(first),str(second),2)
 	#print "msg_length_feature extracted"
 	
 	
-	#eighth feature """acronym count """
+	#eighth feature ""acronym count "
 	acro_line('./chats_process/'+str(first)+'_'+str(second)+'/'+first+'.txt',str(first),str(second),1)
 	acro_line('./chats_process/'+str(first)+'_'+str(second)+'/'+second+'.txt',str(first),str(second),2)
 	#print "acro_line extracted"
 
 	
-	#ninth feature """elongation of vowel count"""
+	#ninth feature ""elongation of vowel count""
 	elongation_vowel('./chats_process/'+str(first)+'_'+str(second)+'/'+first+'.txt',str(first),str(second),1)
 	elongation_vowel('./chats_process/'+str(first)+'_'+str(second)+'/'+second+'.txt',str(first),str(second),2)
 	#print "elongation of vowel count"
 
-	#tenth feature """suspension count """
+	#tenth feature ""suspension count ""
 	suspension_point('./chats_process/'+str(first)+'_'+str(second)+'/'+first+'.txt',str(first),str(second),1)
 	suspension_point('./chats_process/'+str(first)+'_'+str(second)+'/'+second+'.txt',str(first),str(second),2)
 	#print "suspension count"
 
 		
-	#eleventh feature """imitiation_rate """
+	#eleventh feature ""imitiation_rate ""
 	imitation_rate('./chats_process/'+str(first)+'_'+str(second)+'/'+'number_word_1.txt',str(first),str(second),1)
 	imitation_rate('./chats_process/'+str(first)+'_'+str(second)+'/'+'number_word_2.txt',str(first),str(second),2)
 	#print "imitiation_rate"
 
-	#twelth feature """word length ""
+	#twelth feature ""word length ""
 	word_length('./chats_process/'+str(first)+'_'+str(second)+'/'+first+'.txt',str(first),str(second),1)
 	word_length('./chats_process/'+str(first)+'_'+str(second)+'/'+second+'.txt',str(first),str(second),2)
 	#print "word_length_feature extracted"
@@ -158,6 +159,7 @@ for filename in os.listdir(path):
 	media_url('./chats_process/'+str(first)+'_'+str(second)+'/'+first+'.txt',str(first),str(second),1)
 	media_url('./chats_process/'+str(first)+'_'+str(second)+'/'+second+'.txt',str(first),str(second),2)
 
+
 	overall_feature('./chats_process/'+str(first)+'_'+str(second)+'/'+first+'.txt',str(first),str(second),1)
 	overall_feature('./chats_process/'+str(first)+'_'+str(second)+'/'+second+'.txt',str(first),str(second),2)
 	#print "overall_done"
@@ -165,3 +167,4 @@ for filename in os.listdir(path):
 
 process_time()
 main_after_time()
+

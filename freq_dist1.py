@@ -18,7 +18,7 @@ def freq_words(fi,first,second,num):
 	s = open('./chats_process/'+str(first)+'_'+str(second)+'/'+'freq_dist_'+str(num)+'.txt','wb')
 
 	for key, value in result.items():
-		s.write(str(key) + " -> " + str(value))
+		s.write(str(key) + "  " + str(value))
 		s.write("\n")
 
 

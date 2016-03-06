@@ -11,7 +11,8 @@ def acro_line(fi,first,second,num):
 	with open('./chats_process/'+str(first)+'_'+str(second)+'/'+'training_set_'+str(num)+'.csv','r') as csvinput:
 		with open('./chats_process/'+str(first)+'_'+str(second)+'/'+'training_'+str(num)+'.csv', 'w') as csvoutput:
 			writer = csv.writer(csvoutput)
-			
+			d1 = defaultdict(int)
+			v = open('./chats_process/'+str(first)+'_'+str(second)+'/'+'previous_acrnonyms_'+str(num)+'.txt','a')
 			a=0
 			f = open(fi, 'r')
 			f1 = open('acro.txt', 'r')
@@ -35,6 +36,7 @@ def acro_line(fi,first,second,num):
 						for w in l:
 							if w.lower() == word.lower():
 								count+=1
+								d1[w]+=1 #for previously used acronym
 
 
 					s.write(str(a) + " -> " + str(count))
@@ -53,8 +55,10 @@ def acro_line(fi,first,second,num):
 
 			s.close()
 			f.close()
-			
-			os.rename('./chats_process/'+str(first)+'_'+str(second)+'/'+'training_'+str(num)+'.csv', './chats_process/'+str(first)+'_'+str(second)+'/'+'training_set_'+str(num)+'.csv')
+	for key, value in d1.items():
+		v.write(str(key) + " " + str(value))
+		v.write("\n")		
+	os.rename('./chats_process/'+str(first)+'_'+str(second)+'/'+'training_'+str(num)+'.csv', './chats_process/'+str(first)+'_'+str(second)+'/'+'training_set_'+str(num)+'.csv')
 
 if __name__ == "__main__":
 	acro_line(str(f[1]),str(f[2]),str(f[3]),0)

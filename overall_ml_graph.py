@@ -156,7 +156,7 @@ def main():
 	plt.ylabel("Accuracy")
 	for filename in os.listdir(path):
 		results = []
-		print filename
+		#print filename
 		t = path+"/"+filename+"/train.csv"
 		splitRatio = .5
 		dataset = loadCsv(t)
@@ -181,6 +181,7 @@ def main():
 
 		test_set = convert_float(test_copy)
 		labels_test = get_labels(test_copy)
+		#print labels_test
 
 		# SVM
 
@@ -241,19 +242,22 @@ def main():
 	 	plt.plot(x,results,marker='o')
 		
 		s = open('results.txt','a')
-		for a1,b1,c1,d1,e1 in zip(a,b,c,d,e):
+		
+		with open('./chats_process/'+filename+'/'+'ml_training_'+'.csv', 'w') as csvoutput:
+			writer = csv.writer(csvoutput)
+			for a1,b1,c1,d1,e1,label in zip(a,b,c,d,e,labels_test):
+				writer.writerow([a1[1],b1[1],c1[1],d1[1],e1[1],label])
+				s.write("%s\n" % a1)
+				s.write("%s\n" % b1)
+				s.write("%s\n" % c1)
+				s.write("%s\n" % d1)
+				s.write("%s\n" % e1)
 			
-			s.write("%s\n" % a1)
-			s.write("%s\n" % b1)
-			s.write("%s\n" % c1)
-			s.write("%s\n" % d1)
-			s.write("%s\n" % e1)
-			
-			#s.write(b1)
-			#s.write(str(c1)) 
-			#s.write(d1) 
-			#s.write(e1)
-			s.write("................\n")
+				#s.write(b1)
+				#s.write(str(c1)) 
+				#s.write(d1) 
+				#s.write(e1)
+				s.write("................\n")
 		'''
 		print('Split {0} rows into train={1} and test={2} rows').format(len(dataset), len(trainingSet), len(testSet))
 		# prepare model
