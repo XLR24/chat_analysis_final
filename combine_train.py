@@ -35,7 +35,7 @@ for filename in os.listdir(path):
 					
 					linet = linet[1:]
 						
-					print linet
+					#print linet
 					f1.write(linet)
 
 				for line in ff:

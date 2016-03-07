@@ -90,7 +90,7 @@ for filename in os.listdir(path):
 	#creates a text file named word_length_1 which contains number of word in each line.
 	word_length('./chats_process/'+str(first)+'_'+str(second)+'/'+second+'.txt',str(first),str(second),2)
 	#print "word_length_feature extracted"
-
+	'''
 	
 	#third feature ""uppercase_lowrcase ratio""
 	ratio('./chats_process/'+str(first)+'_'+str(second)+'/'+first+'.txt',str(first),str(second),1)
@@ -98,7 +98,7 @@ for filename in os.listdir(path):
 	ratio('./chats_process/'+str(first)+'_'+str(second)+'/'+second+'.txt',str(first),str(second),2)
 	#print "ratio_feature extracted"
 
-	
+	'''
 	#fourth feature ""smiley count ""every 10 line feature usage
 	smiley_count('./chats_process/'+str(first)+'_'+str(second)+'/'+first+'.txt',str(first),str(second),1)
 	smiley_count('./chats_process/'+str(first)+'_'+str(second)+'/'+second+'.txt',str(first),str(second),2)

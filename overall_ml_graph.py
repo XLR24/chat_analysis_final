@@ -154,17 +154,25 @@ def main():
 	plt.title("Accuracy of different algorithm on different user chat")
 	plt.xlabel("Algorithms used")
 	plt.ylabel("Accuracy")
+	m = "test_negative.csv"
+	test_nega = loadCsv(m)
+	count=0
+	results = [0,0,0,0,0,0]
+	#test_negative = convert_float(test_nega)
+	#labels_test_negative = get_labels(test_negative)
 	for filename in os.listdir(path):
-		results = []
-		#print filename
+		count+=1
+		
+		print filename
 		t = path+"/"+filename+"/train.csv"
 		splitRatio = .5
 		dataset = loadCsv(t)
 		trainingSet, testSet = splitDataset(dataset, splitRatio)
-	
+		
+		testSet = testSet + test_nega
 		trainset_copy = trainingSet
 		test_copy = testSet
-
+		
 		trainingSet = convert_float(trainingSet)
 		testSet = convert_float(testSet)
 
@@ -175,12 +183,14 @@ def main():
 		acc_NB = getAccuracy1(testSet, predictions)
 
 		print "accuracy_simpleNB= " + str(acc_NB)
-		results.append(acc_NB)
+		results[0]+=acc_NB
 		train_set = convert_float(trainset_copy)
 		labels_train = get_labels(trainset_copy)
 
 		test_set = convert_float(test_copy)
+		#testSet = testSet + test_negative
 		labels_test = get_labels(test_copy)
+		#labels_test = labels_test + labels_test_negative
 		#print labels_test
 
 		# SVM
@@ -192,7 +202,7 @@ def main():
 		a = clf.predict_proba(test_set)
 		acc_svm = getAccuracy(results_SVM,labels_test)
 		print "accuracy_svm= " + str(acc_svm)
-		results.append(acc_svm)
+		results[1]+=acc_svm
 		#KNN
 
 		neigh = KNeighborsClassifier(n_neighbors=3)
@@ -201,7 +211,7 @@ def main():
 		b = neigh.predict_proba(test_set)
 		acc_knn = getAccuracy(results_KNN,labels_test)
 		print "accuracy_knn= " + str(acc_knn)
-		results.append(acc_knn)
+		results[2]+=acc_knn
 		#gausianNB
 
 		clf = GaussianNB()
@@ -210,7 +220,7 @@ def main():
 		c = clf.predict_proba(test_set)
 		acc_gausNB = getAccuracy(results_GausianNB,labels_test)
 		print "accuracy_gausNB= " + str(acc_gausNB)
-		results.append(acc_gausNB)
+		results[3]+=acc_gausNB
 		#BernoiliNB
 
 		clf = BernoulliNB()
@@ -219,7 +229,7 @@ def main():
 		d = clf.predict_proba(test_set)
 		acc_BernoNB = getAccuracy(results_BernoulliNB,labels_test)
 		print "accuracy_bernoNB= " + str(acc_BernoNB)
-		results.append(acc_BernoNB)
+		results[4]+=acc_BernoNB
 		#randomforests
 
 		clf = RandomForestClassifier(n_estimators=10)
@@ -228,7 +238,7 @@ def main():
 		e =  clf.predict_proba(test_set)
 		acc_random_F = getAccuracy(results_randomforest,labels_test)
 		print "accuracy_random_forest= " + str(acc_random_F)
-		results.append(acc_random_F)
+		results[5]+=acc_random_F
 		print "-------------\n"
 		#print results_SVM
 		#print results_KNN
@@ -239,8 +249,9 @@ def main():
 		#print "\n"
 		#print labels_test
 		#print results
-	 	plt.plot(x,results,marker='o')
+	 	#plt.plot(x,results,marker='o')
 		
+		'''
 		s = open('results.txt','a')
 		
 		with open('./chats_process/'+filename+'/'+'ml_training_'+'.csv', 'w') as csvoutput:
@@ -258,7 +269,7 @@ def main():
 				#s.write(d1) 
 				#s.write(e1)
 				s.write("................\n")
-		'''
+		
 		print('Split {0} rows into train={1} and test={2} rows').format(len(dataset), len(trainingSet), len(testSet))
 		# prepare model
 		summaries = summarizeByClass(trainingSet)
@@ -266,6 +277,10 @@ def main():
 		predictions = getPredictions(summaries, testSet)
 		accuracy = getAccuracy(testSet, predictions)
 		print('Accuracy: {0}%').format(accuracy) '''
-	plt.xticks(x, LABELS) 	
-	plt.show()
+	for i in [0,1,2,3,4,5]:
+		results[i]=results[i]/count
+	t = open('remove_one.txt','a')
+	t.write(str(results))
+	#plt.xticks(x, LABELS) 	
+	#plt.show()
 main()

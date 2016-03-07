@@ -148,11 +148,12 @@ def seperate1(test_copy):
 
 path = './chats_process'
 def main():
+	
 	for filename in os.listdir(path):
 		
 		print filename
 		t = path+"/"+filename+"/train.csv"
-		splitRatio = .5
+		splitRatio = .9
 		dataset = loadCsv(t)
 		trainingSet, testSet = splitDataset(dataset, splitRatio)
 	
@@ -161,21 +162,23 @@ def main():
 
 		trainingSet = convert_float(trainingSet)
 		testSet = convert_float(testSet)
-
+		
+		
 		#print testSet
 
 		summaries = summarizeByClass(trainingSet)
 		predictions = getPredictions(summaries, testSet)
 		acc_NB = getAccuracy1(testSet, predictions)
 
-		#print "accuracy_simpleNB= " + str(acc_NB)
+		print "accuracy_simpleNB= " + str(acc_NB)
 
 		train_set = convert_float(trainset_copy)
 		labels_train = get_labels(trainset_copy)
 
 		test_set = convert_float(test_copy)
+		
 		labels_test = get_labels(test_copy)
-
+		
 		# SVM
 
 		clf = svm.SVC(probability=True)
@@ -184,7 +187,7 @@ def main():
 		results_SVM = clf.predict(test_set)
 		a = clf.predict_proba(test_set)
 		acc_svm = getAccuracy(results_SVM,labels_test)
-		#print "accuracy_svm= " + str(acc_svm)
+		print "accuracy_svm= " + str(acc_svm)
 		#print clf.classes_
 		#KNN
 
@@ -193,7 +196,7 @@ def main():
 		results_KNN=neigh.predict(test_set)
 		b = neigh.predict_proba(test_set)
 		acc_knn = getAccuracy(results_KNN,labels_test)
-		#print "accuracy_knn= " + str(acc_knn)
+		print "accuracy_knn= " + str(acc_knn)
 		#print neigh.classes_
 
 		#gausianNB
@@ -203,7 +206,7 @@ def main():
 		results_GausianNB=clf.predict(test_set)
 		c = clf.predict_proba(test_set)
 		acc_gausNB = getAccuracy(results_GausianNB,labels_test)
-		#print "accuracy_gausNB= " + str(acc_gausNB)
+		print "accuracy_gausNB= " + str(acc_gausNB)
 		#print clf.classes_
 		#BernoiliNB
 
@@ -212,7 +215,7 @@ def main():
 		results_BernoulliNB=clf.predict(test_set)
 		d = clf.predict_proba(test_set)
 		acc_BernoNB = getAccuracy(results_BernoulliNB,labels_test)
-		#print "accuracy_bernoNB= " + str(acc_BernoNB)
+		print "accuracy_bernoNB= " + str(acc_BernoNB)
 		#print clf.classes_
 		#randomforests
 
@@ -221,7 +224,7 @@ def main():
 		results_randomforest=clf.predict(test_set)
 		e =  clf.predict_proba(test_set)
 		acc_random_F = getAccuracy(results_randomforest,labels_test)
-		#print "accuracy_random_forest= " + str(acc_random_F)
+		print "accuracy_random_forest= " + str(acc_random_F)
 		#print clf.classes_
 		
 		#print results_SVM
