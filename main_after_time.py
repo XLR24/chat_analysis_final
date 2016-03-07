@@ -33,13 +33,14 @@ def main_after_time():
 			for l in f:
 				if l.find(first)==-1:
 					a=l.split(":")
-					second = a[1]
-					b=second.split("-")
+					if len(a)>1:
+						second = a[1]
+						b=second.split("-")
+						if(len(b)>1):
+							second=b[1]
 
-					second=b[1]
-
-					print "in loop"
-					break
+							#print "in loop"
+							break
 			break	
 		print first,second
 		
@@ -66,11 +67,12 @@ def main_after_time():
 			f = open('./raw/windows/'+filename, 'r')
 			for l in f:
 				if l.find(first)==-1:
-					a=l.split(":")
-					second = a[3]
+					if l.find(":")!=-1:
+						a=l.split(":")
+						second = a[3]
 				
-					print "in loop"
-					break
+						print "in loop"
+						break
 			break	
 			f.close()
 		print first,second

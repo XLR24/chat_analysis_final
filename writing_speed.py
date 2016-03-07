@@ -22,7 +22,16 @@ def writing_speed_android(fi,first,second,num):
 				a = time.index(":::")
 				p=time[:a]
 				time = time[a:]
-				date1 = datetime.strptime(time,"::: %m/%d/%Y, %I:%M %p\n")
+				correctDate=False
+				try:
+					date1 = datetime.strptime(time,"::: %d/%m/%Y, %H:%M \n")
+					correctDate=True
+				except ValueError:
+					correctDate=False
+				if correctDate==True:
+					date1.strftime("::: %m/%d/%Y, %I:%M %p\n")
+				else:
+					date1=datetime.strptime(time,"::: %m/%d/%Y, %I:%M %p\n")
 				prev = date1
 				break
 			
@@ -34,7 +43,17 @@ def writing_speed_android(fi,first,second,num):
 				p=time[:a]
 				time = time[a:]
 				answer_time = open('./chats_process/'+str(first)+'_'+str(second)+'/'+'writing_speed'+str(num)+'.txt','a')
-				date1 = datetime.strptime(time,"::: %m/%d/%Y, %I:%M %p\n")
+				correctDate=False
+				try:
+					date1 = datetime.strptime(time,"::: %d/%m/%Y, %H:%M \n")
+					correctDate=True
+				except ValueError:
+					correctDate=False
+				if correctDate==True:
+					date1.strftime("::: %m/%d/%Y, %I:%M %p\n")
+				else:
+					date1=datetime.strptime(time,"::: %m/%d/%Y, %I:%M %p\n")
+				
 				if(date1-prev > timedelta(hours=2)):
 					answer_time.write(str(a) + " " + "-1")	
 					writer.writerow(row+["-1"])

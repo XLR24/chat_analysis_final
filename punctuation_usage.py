@@ -51,7 +51,7 @@ def punctuation(fi,first,second,num):
 				p.write("\n")
 
 
-			s.close()
+				s.close()
 			f.close()
 			
 			os.rename('./chats_process/'+str(first)+'_'+str(second)+'/'+'training_'+str(num)+'.csv', './chats_process/'+str(first)+'_'+str(second)+'/'+'training_set_'+str(num)+'.csv')

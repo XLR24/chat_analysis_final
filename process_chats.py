@@ -25,13 +25,15 @@ def process():
 			for l in f:
 				if l.find(first)==-1:
 					a=l.split(":")
-					second = a[1]
-					b=second.split("-")
+					#print l
+					if len(a)>1:
+						second = a[1]
+						b=second.split("-")
+						if(len(b)>1):
+							second=b[1]
 
-					second=b[1]
-
-					print "in loop"
-					break
+							print "in loop"
+							break
 			break	
 		print first,second
 		
@@ -45,22 +47,24 @@ def process():
 			
 				s = open('./chats_process/'+first+'_'+second+'/'+first+'.txt','a')
 				index_1 = line.index(first)
-
+				
 				u = line[index_1:]
-				m = u.index(":")
-				t = u[m:]
+				if u.find(":")!=-1:
+					m = u.index(":")
+					t = u[m:]
 			
-				a=0
-				s.write(t)
+					a=0
+					s.write(t)
 			elif line.find(second)!=-1:
 				s = open('./chats_process/'+first+'_'+second+'/'+second+'.txt','a')
 				index_2 = line.index(second)
 				u = line[index_2:]
-				m = u.index(":")
-				t = u[m:]
+				if u.find(":")!=-1:
+					m = u.index(":")
+					t = u[m:]
 				
-				a=1
-				s.write(t)
+					a=1
+					s.write(t)
 			else:
 				if a==0:
 					s = open('./chats_process/'+first+'_'+second+'/'+first+'.txt','a')
@@ -107,20 +111,21 @@ def process():
 				index_1 = line.index(first)
 
 				u = line[index_1:]
-				m = u.index(":")
-				t = u[m:]
+				if u.find(":")!=-1:
+					m = u.index(":")
+					t = u[m:]
 			
-				a=0
-				s.write(t)
+					a=0
+					s.write(t)
 			elif line.find(second)!=-1:
 				s = open('./chats_process/'+first+'_'+second+'/'+second+'.txt','a')
 				index_2 = line.index(second)
 				u = line[index_2:]
-				m = u.index(":")
-				t = u[m:]
-				
-				a=1
-				s.write(t)
+				if u.find(":")!=-1:
+					m = u.index(":")
+					t = u[m:]
+					a=1
+					s.write(t)
 			else:
 				if a==0:
 					s = open('./chats_process/'+first+'_'+second+'/'+first+'.txt','a')
