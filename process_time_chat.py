@@ -28,13 +28,15 @@ def time_chat_android():
 			for l in f:
 				if l.find(first)==-1:
 					a=l.split(":")
-					second = a[1]
-					b=second.split("-")
+					
+					if len(a)>1:
+						second = a[1]
+						b=second.split("-")
+						if(len(b)>1):
+							second=b[1]
 
-					second=b[1]
-
-					#print "in loop"
-					break
+							#print "in loop"
+							break
 			break	
 		
 		f = open('./raw/android/'+filename, 'r')
@@ -46,24 +48,24 @@ def time_chat_android():
 			line.replace("," , " ::: ")
 			if line.find(first)!=-1:
 			
-				
-				index_1 = line.index(" - ") #truncate by #
+				if line.find(" - ")!=-1:
+					index_1 = line.index(" - ") #truncate by #
 
-				t = line[:index_1] # put date and time in a file
-				#print t
-				a=1
-				s.write(str(a) + " ::: " +t)
+					t = line[:index_1] # put date and time in a file
+					#print t
+					a=1
+					s.write(str(a) + " ::: " +t)
 
-				s.write("\n")
-				s.close()
+					s.write("\n")
+					s.close()
 			elif line.find(second)!=-1:
-				
-				index_2 = line.index(" - ")
-				t = line[:index_2]
-				a=2 # second person speaking
-				s.write(str(a) + " ::: " +t)
-				s.write("\n")
-				s.close()
+				if line.find(" - ")!=-1:
+					index_2 = line.index(" - ")
+					t = line[:index_2]
+					a=2 # second person speaking
+					s.write(str(a) + " ::: " +t)
+					s.write("\n")
+					s.close()
 		#f.close()
 
 		f = open('./chats_process/'+str(first)+'_'+str(second)+'/'+'time.txt', 'r')
@@ -84,23 +86,53 @@ def time_chat_android():
 			a = line.index(":::")
 			p=line[:a]
 			line = line[a:]
-			
-			date_session=datetime.strptime(line,"::: %m/%d/%Y, %I:%M %p\n")
-			
+			correctDate=False
+			#if date is in 24 hrs format
+			#print line
+			try:
+			    date_session=datetime.strptime(line,"::: %d/%m/%Y, %H:%M\n")
+			    correctDate=True
+			except ValueError:
+				#print "dsj"
+				correctDate=False
+				
+			#convert to 12 hrs format
+			#print correctDate	
+			if correctDate==True:
+				
+				date_session.strftime("::: %m/%d/%Y, %I:%M %p\n")
+			else:
+				
+				date_session=datetime.strptime(line,"::: %m/%d/%Y, %I:%M %p\n")
+				
 			if prev==0:
-				date1 = datetime.strptime(line,"::: %m/%d/%Y, %I:%M %p\n")
-				date3 = datetime.strptime(line,"::: %m/%d/%Y, %I:%M %p\n")				
+				if correctDate:
+					date1 = datetime.strptime(line,"::: %d/%m/%Y, %H:%M\n")
+					date3 = datetime.strptime(line,"::: %d/%m/%Y, %H:%M\n")	
+					date1.strftime("::: %m/%d/%Y, %I:%M %p\n")
+					date3.strftime("::: %m/%d/%Y, %I:%M %p\n")
+				else:
+					date1 = datetime.strptime(line,"::: %m/%d/%Y, %I:%M %p\n")
+					date3 = datetime.strptime(line,"::: %m/%d/%Y, %I:%M %p\n")				
 				prev=1
 				prev_turn=p
 				prev_date_session=date_session
 				z1.write( str(prev_turn)+  " " + str(delta1) + "\n")
 
 			elif prev==1 and p==prev_turn:
-				date3 = datetime.strptime(line,"::: %m/%d/%Y, %I:%M %p\n")
+				if correctDate:
+					date3 = datetime.strptime(line,"::: %d/%m/%Y, %H:%M\n")
+					date3.strftime("::: %m/%d/%Y, %I:%M %p\n")
+				else: 
+					date3 = datetime.strptime(line,"::: %m/%d/%Y, %I:%M %p\n")
 				prev_turn=p
 				z1.write( str(prev_turn)+  " " + str(delta1) + "\n")
 			else:
-				date2 = datetime.strptime(line,"::: %m/%d/%Y, %I:%M %p\n")
+				if correctDate:
+					date2 = datetime.strptime(line,"::: %d/%m/%Y, %H:%M\n")
+					date2.strftime("::: %m/%d/%Y, %I:%M %p\n")
+				else:
+					date2 = datetime.strptime(line,"::: %m/%d/%Y, %I:%M %p\n")
 				
 				if date3>date1:
 					delta= date3-date1
@@ -122,7 +154,11 @@ def time_chat_android():
 				z4.write("\n------------------\n")
 				z.write( str(prev_turn)+  " " + str(delta) + "\n")
 				prev_turn=p
-				date1 = datetime.strptime(line,"::: %m/%d/%Y, %I:%M %p\n")
+				if correctDate:
+					date1 = datetime.strptime(line,"::: %d/%m/%Y, %H:%M\n")
+					date1.strftime("::: %m/%d/%Y, %I:%M %p\n")
+				else:
+					date1 = datetime.strptime(line,"::: %m/%d/%Y, %I:%M %p\n")
 				date3=date1
 
 			z4.write(line1)
@@ -158,7 +194,7 @@ def time_chat_android():
 			line = line.split(" ")
 			
 			fir=line[0]
-	
+			
 			seconds = line[2]
 			#seconds = seconds.replace('\n', '').replace('\r', '')
 

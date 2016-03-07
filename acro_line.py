@@ -53,7 +53,7 @@ def acro_line(fi,first,second,num):
 				a = a+1
 				
 
-			s.close()
+				s.close()
 			f.close()
 	for key, value in d1.items():
 		v.write(str(key) + " " + str(value))
