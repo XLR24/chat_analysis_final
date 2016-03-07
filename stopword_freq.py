@@ -52,11 +52,3 @@ def stopword_usage(fi,first,second,num):
 f = sys.argv
 if __name__ == "__main__":
 	stopword_usage(str(f[1]),str(f[2]),str(f[3]),0)
-
-
-
-
-
-
-
-

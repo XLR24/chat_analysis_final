@@ -100,7 +100,7 @@ def overall_feature(fi,first,second,num):
 					
 					elif frequent_words.has_key(word):
 						score3+=int(frequent_words[word])
-						print str(word) +" " + str(score3)
+						#print str(word) +" " + str(score3)
 					
 					else:
 						continue

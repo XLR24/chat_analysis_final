@@ -30,7 +30,7 @@ def ratio(fi,first,second,num):
 				writer.writerow(row+[low_count,upp_count])
 				s.write("\n")
 				a = a+1
-			s.close()
+				s.close()
 			f.close()
 			os.rename('./chats_process/'+str(first)+'_'+str(second)+'/'+'training_'+str(num)+'.csv', './chats_process/'+str(first)+'_'+str(second)+'/'+'training_set_'+str(num)+'.csv')
 

@@ -38,7 +38,7 @@ def average_word(fi,first,second,num):
 				a = a+1
 				
 
-			s.close()
+				s.close()
 			f.close()
 			
 			os.rename('./chats_process/'+str(first)+'_'+str(second)+'/'+'training_'+str(num)+'.csv', './chats_process/'+str(first)+'_'+str(second)+'/'+'training_set_'+str(num)+'.csv')
