@@ -21,13 +21,16 @@ def loadCsv(filename):
 	'''
 	return dataset
 
-def splitDataset(dataset, splitRatio):
-	trainSize = int(len(dataset) * splitRatio)
+def splitDataset(dataset, number):
+	
+	trainSize = int(number)
 	trainSet = []
 	copy = list(dataset)
-	while len(trainSet) < trainSize:
+	i=0
+	while i<number:
 		index = random.randrange(len(copy))
 		trainSet.append(copy.pop(index))
+		i+=1
 	return [trainSet, copy]
  
 def separateByClass(dataset):
@@ -160,27 +163,23 @@ def main():
 	
 	#test_negative = convert_float(test_nega)
 	#labels_test_negative = get_labels(test_negative)
-	for i in range(0,19):
+	number=20
+	for i in range(0,20):
 		count=0
 		results = [0,0,0,0,0,0]
 		for filename in os.listdir(path):
-				
+	
 			count+=1
-		
-			#print filename
-		
-			m = path+'/'+filename+'/test_negative_'+str(i)+'.csv'
-			test_nega = loadCsv(m)
-
-			t = path+'/'+filename+'/train_graph_'+str(i)+'.csv'
+			print filename
+			t = path+'/'+filename+'/train.csv'
 			splitRatio = .5
 			dataset = loadCsv(t)
-			trainingSet, testSet = splitDataset(dataset, splitRatio)
-		
-			testSet = testSet + test_nega
+			trainingSet, testSet = splitDataset(dataset,number)
+			number+=20
+			#testSet = testSet + test_nega
 			trainset_copy = trainingSet
 			test_copy = testSet
-		
+	
 			trainingSet = convert_float(trainingSet)
 			testSet = convert_float(testSet)
 
@@ -258,10 +257,10 @@ def main():
 			#print labels_test
 			#print results
 		 	#plt.plot(x,results,marker='o')
-		
+	
 			'''
 			s = open('results.txt','a')
-		
+	
 			with open('./chats_process/'+filename+'/'+'ml_training_'+'.csv', 'w') as csvoutput:
 				writer = csv.writer(csvoutput)
 				for a1,b1,c1,d1,e1,label in zip(a,b,c,d,e,labels_test):
@@ -271,13 +270,13 @@ def main():
 					s.write("%s\n" % c1)
 					s.write("%s\n" % d1)
 					s.write("%s\n" % e1)
-			
+		
 					#s.write(b1)
 					#s.write(str(c1)) 
 					#s.write(d1) 
 					#s.write(e1)
 					s.write("................\n")
-		
+	
 			print('Split {0} rows into train={1} and test={2} rows').format(len(dataset), len(trainingSet), len(testSet))
 			# prepare model
 			summaries = summarizeByClass(trainingSet)
@@ -285,10 +284,11 @@ def main():
 			predictions = getPredictions(summaries, testSet)
 			accuracy = getAccuracy(testSet, predictions)
 			print('Accuracy: {0}%').format(accuracy) '''
+		
 		for i in [0,1,2,3,4,5]:
 			results[i]=results[i]/count
-		t = open('remove_one.txt','a')
-		t.write(str(results)+'\n')
+		t = open('remove_one3.txt','a')
+		t.write(str(number)+" , " + str(results)+'\n')
 
 		#plt.xticks(x, LABELS) 	
 		#plt.show()

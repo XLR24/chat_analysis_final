@@ -169,10 +169,10 @@ def main():
 		
 			#print filename
 		
-			m = path+'/'+filename+'/test_negative_'+str(i)+'.csv'
+			m = path+'/'+filename+'/test_negative1_'+str(i)+'.csv'
 			test_nega = loadCsv(m)
 
-			t = path+'/'+filename+'/train_graph_'+str(i)+'.csv'
+			t = path+'/'+filename+'/train_graph1_'+str(i)+'.csv'
 			splitRatio = .5
 			dataset = loadCsv(t)
 			trainingSet, testSet = splitDataset(dataset, splitRatio)
@@ -287,7 +287,7 @@ def main():
 			print('Accuracy: {0}%').format(accuracy) '''
 		for i in [0,1,2,3,4,5]:
 			results[i]=results[i]/count
-		t = open('remove_one.txt','a')
+		t = open('remove_one1.txt','a')
 		t.write(str(results)+'\n')
 
 		#plt.xticks(x, LABELS) 	
