@@ -27,7 +27,9 @@ def splitDataset(dataset, number):
 	trainSet = []
 	copy = list(dataset)
 	i=0
+	print number
 	while i<number:
+		#print len(copy)
 		index = random.randrange(len(copy))
 		trainSet.append(copy.pop(index))
 		i+=1
@@ -159,23 +161,26 @@ def main():
 	plt.xlabel("Algorithms used")
 	plt.ylabel("Accuracy")
 	path = './chats_process'
-	
+	m = 'test_negative.csv'
+	test_nega = loadCsv(m)
 	
 	#test_negative = convert_float(test_nega)
 	#labels_test_negative = get_labels(test_negative)
-	number=20
+	number=0
 	for i in range(0,20):
 		count=0
+		number+=7
 		results = [0,0,0,0,0,0]
 		for filename in os.listdir(path):
 	
 			count+=1
 			print filename
+
 			t = path+'/'+filename+'/train.csv'
 			splitRatio = .5
 			dataset = loadCsv(t)
 			trainingSet, testSet = splitDataset(dataset,number)
-			number+=20
+			
 			#testSet = testSet + test_nega
 			trainset_copy = trainingSet
 			test_copy = testSet
