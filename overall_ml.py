@@ -148,15 +148,28 @@ def seperate1(test_copy):
 
 path = './chats_process'
 def main():
-	
+	min1=100
+	min2=100
+	min3=100
+	min4=100
+	min5=100
+	min6=100
+	max1=0
+	max2=0
+	max3=0
+	max4=0
+	max5=0
+	max6=0
 	for filename in os.listdir(path):
 		
 		print filename
 		t = path+"/"+filename+"/train.csv"
-		splitRatio = .9
+		splitRatio = .5
 		dataset = loadCsv(t)
+		m = 'test_negative.csv'
+		test_nega = loadCsv(m)
 		trainingSet, testSet = splitDataset(dataset, splitRatio)
-	
+		testSet = testSet + test_nega
 		trainset_copy = trainingSet
 		test_copy = testSet
 
@@ -169,7 +182,7 @@ def main():
 		summaries = summarizeByClass(trainingSet)
 		predictions = getPredictions(summaries, testSet)
 		acc_NB = getAccuracy1(testSet, predictions)
-
+		
 		print "accuracy_simpleNB= " + str(acc_NB)
 
 		train_set = convert_float(trainset_copy)
@@ -313,12 +326,58 @@ def main():
 		final_acc2=getAccuracy(pred_results_majority,labels_test)
 		final_acc3=getAccuracy(pred_results_say,labels_test)
 
+	
+		with open('./chats_process/'+filename+'/'+'ml_training'+'.csv', 'w') as csvoutput:
+			writer = csv.writer(csvoutput)
+			for a1,b1,c1,d1,e1,label in zip(a,b,c,d,e,labels_test):
+				
+				writer.writerow([a1[1],b1[1],c1[1],d1[1],e1[1],label])
+				s.write("%s\n" % a1)
+				s.write("%s\n" % b1)
+				s.write("%s\n" % c1)
+				s.write("%s\n" % d1)
+				s.write("%s\n" % e1)
+		
+				#s.write(b1)
+				#s.write(str(c1)) 
+				#s.write(d1) 
+				#s.write(e1)
+				s.write("................\n")
+		csvoutput.close()
+		m = './chats_process/'+filename+'/'+'ml_training'+'.csv'
+		dataset = loadCsv(m)
+		training, test = splitDataset(dataset, splitRatio)
+		n_set = convert_float(training)
+		ls_train = get_labels(training)
 
+		t_set = convert_float(test)
+		
+		s_test = get_labels(test)
+		
+		# SVM
+
+		clf = svm.SVC()
+		clf.fit(n_set, ls_train)
+		#clf.decision_function(test_set)
+		results_SVM = clf.predict(t_set)
+		
+		acc_svm = getAccuracy(results_SVM,s_test)
+		min1=min(min1,acc_svm)
+		max1=max(max1,acc_svm)
+		print "combining_through_ml= " + str(acc_svm)
+		min2=min(min2,final_acc)
+		max2=max(max2,final_acc)
 		print 'final_Acc_average= '+ str(final_acc)
+		min3=min(min3,final_acc1)
+		max3=max(max3,final_acc1)
 		print 'final_Acc_weight= '+ str(final_acc1)
+		min4=min(min4,final_acc2)
+		max4=max(max4,final_acc2)
 		print 'final_Acc_majority= '+ str(final_acc2)
+		min5=min(min5,final_acc3)
+		max5=max(max5,final_acc3)
 		print 'final_Acc_say= '+ str(final_acc3)
-		print 'final_Acc_maxi of algo = '+ str(max(acc_gausNB,acc_random_F,acc_BernoNB,acc_knn,acc_svm))
+		
 		print "-------------\n"
 
 		'''
@@ -342,6 +401,15 @@ def main():
 		predictions = getPredictions(summaries, testSet)
 		accuracy = getAccuracy(testSet, predictions)
 		print('Accuracy: {0}%').format(accuracy)
-	 	'''
+		 	'''
+	t = open('combine_ml.txt','a')
+	t.write(str(min1)+" , " + str(max1)+'\n')
+	t.write(str(min2)+" , " + str(max2)+'\n')
+	t.write(str(min3)+" , " + str(max3)+'\n')
+	t.write(str(min4)+" , " + str(max4)+'\n')
+	t.write(str(min5)+" , " + str(max5)+'\n')
+
+
+
 main()
 
