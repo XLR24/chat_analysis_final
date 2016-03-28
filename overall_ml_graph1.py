@@ -160,7 +160,7 @@ def main():
 	
 	#test_negative = convert_float(test_nega)
 	#labels_test_negative = get_labels(test_negative)
-	for i in range(0,19):
+	for i in range(0,20):
 		count=0
 		results = [0,0,0,0,0,0]
 		for filename in os.listdir(path):
