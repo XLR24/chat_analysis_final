@@ -160,7 +160,7 @@ def main():
 	
 	#test_negative = convert_float(test_nega)
 	#labels_test_negative = get_labels(test_negative)
-	for i in range(0,19):
+	for i in range(0,20):
 		count=0
 		results = [0,0,0,0,0,0]
 		for filename in os.listdir(path):
@@ -176,11 +176,16 @@ def main():
 			splitRatio = .5
 			dataset = loadCsv(t)
 			trainingSet, testSet = splitDataset(dataset, splitRatio)
-		
+			#print filename
+			#print len(testSet[0])
+	
+			#print len(test_nega[0])
+			#print '\n'
 			testSet = testSet + test_nega
+		
 			trainset_copy = trainingSet
 			test_copy = testSet
-		
+			
 			trainingSet = convert_float(trainingSet)
 			testSet = convert_float(testSet)
 
@@ -194,7 +199,7 @@ def main():
 			results[0]+=acc_NB
 			train_set = convert_float(trainset_copy)
 			labels_train = get_labels(trainset_copy)
-
+		
 			test_set = convert_float(test_copy)
 			#testSet = testSet + test_negative
 			labels_test = get_labels(test_copy)
@@ -206,6 +211,7 @@ def main():
 			clf = svm.SVC(probability=True)
 			clf.fit(train_set, labels_train)
 			#clf.decision_function(test_set)
+			
 			results_SVM = clf.predict(test_set)
 			a = clf.predict_proba(test_set)
 			acc_svm = getAccuracy(results_SVM,labels_test)
@@ -289,8 +295,9 @@ def main():
 			results[i]=results[i]/count
 		t = open('remove_one.txt','a')
 		t.write(str(results)+'\n')
-
+		
 		#plt.xticks(x, LABELS) 	
 		#plt.show()
-
+	
+		
 main()
