@@ -14,10 +14,7 @@ for filename in os.listdir(path):
 
 	#print "b"
 	count=0
-	for i in range(0,21):	
-		if i==19:
-			continue
-			
+	for i in range(0,19):		
 		with open('./chats_process/'+str(first)+'_'+str(second)+'/'+'train_graph_'+str(count)+'.csv','w') as ff:
 			with open('./chats_process/'+str(first)+'_'+str(second)+'/'+'train.csv','r') as f1:
 				with open('test_negative.csv','r') as f2:
@@ -30,8 +27,8 @@ for filename in os.listdir(path):
 							line = line.replace('\n', '').replace('\r', '')
 				
 							line=line.split(",")
-							if i<20:
-								line.pop(i)
+							
+							line.pop(i)
 
 							writer.writerow(line)
 					
@@ -41,8 +38,8 @@ for filename in os.listdir(path):
 						
 							line = line.replace('\n', '').replace('\r', '')
 							line=line.split(",")
-							if i<20:							
-								line.pop(i)
+														
+							line.pop(i)
 							writer.writerow(line)
 					f3.close()
 				f2.close()
