@@ -1,3 +1,4 @@
+
 import csv
 import random
 import math
@@ -148,6 +149,7 @@ def seperate1(test_copy):
 
 path = './chats_process'
 def main():
+	no_user = 0
 	min1=100
 	min2=100
 	min3=100
@@ -160,8 +162,9 @@ def main():
 	max4=0
 	max5=0
 	max6=0
+	average = [0,0,0,0,0]
 	for filename in os.listdir(path):
-		
+		no_user+=1
 		print filename
 		t = path+"/"+filename+"/train.csv"
 		splitRatio = .5
@@ -364,18 +367,23 @@ def main():
 		acc_svm = getAccuracy(results_SVM,s_test)
 		min1=min(min1,acc_svm)
 		max1=max(max1,acc_svm)
+		average[0]+=acc_svm
 		print "combining_through_ml= " + str(acc_svm)
 		min2=min(min2,final_acc)
 		max2=max(max2,final_acc)
+		average[1]+=final_acc
 		print 'final_Acc_average= '+ str(final_acc)
 		min3=min(min3,final_acc1)
 		max3=max(max3,final_acc1)
+		average[2]+=final_acc1
 		print 'final_Acc_weight= '+ str(final_acc1)
 		min4=min(min4,final_acc2)
 		max4=max(max4,final_acc2)
+		average[3]+=final_acc2
 		print 'final_Acc_majority= '+ str(final_acc2)
 		min5=min(min5,final_acc3)
 		max5=max(max5,final_acc3)
+		average[4]+=final_acc3
 		print 'final_Acc_say= '+ str(final_acc3)
 		
 		print "-------------\n"
@@ -403,13 +411,14 @@ def main():
 		print('Accuracy: {0}%').format(accuracy)
 		 	'''
 	t = open('combine_ml.txt','a')
-	t.write(str(min1)+" , " + str(max1)+'\n')
-	t.write(str(min2)+" , " + str(max2)+'\n')
-	t.write(str(min3)+" , " + str(max3)+'\n')
-	t.write(str(min4)+" , " + str(max4)+'\n')
-	t.write(str(min5)+" , " + str(max5)+'\n')
+	t.write(str(min1)+" , " + str(max1)+" , " + str(average[0]/float(no_user))+'\n')
+	t.write(str(min2)+" , " + str(max2)+" , " + str(average[1]/float(no_user))+'\n')
+	t.write(str(min3)+" , " + str(max3)+" , " + str(average[2]/float(no_user))+'\n')
+	t.write(str(min4)+" , " + str(max4)+" , " + str(average[3]/float(no_user))+'\n')
+	t.write(str(min5)+" , " + str(max5)+" , " + str(average[4]/float(no_user))+'\n')
 
 
 
 main()
 
+   

@@ -21,16 +21,13 @@ def loadCsv(filename):
 	'''
 	return dataset
 
-def splitDataset(dataset, number):
-	
-	trainSize = int(number)
+def splitDataset(dataset, splitRatio):
+	trainSize = int(len(dataset) * splitRatio)
 	trainSet = []
 	copy = list(dataset)
-	i=0
-	while i<number:
+	while len(trainSet) < trainSize:
 		index = random.randrange(len(copy))
 		trainSet.append(copy.pop(index))
-		i+=1
 	return [trainSet, copy]
  
 def separateByClass(dataset):
@@ -164,8 +161,8 @@ def main():
 	#test_negative = convert_float(test_nega)
 	#labels_test_negative = get_labels(test_negative)
 	
-	count=0
-	results = [0,0,0,0,0,0]
+	no_user=0
+	
 	min1=100
 	min2=100
 	min3=100
@@ -178,16 +175,18 @@ def main():
 	max4=0
 	max5=0
 	max6=0
+	average = [0,0,0,0,0,0]
 	for filename in os.listdir(path):
 
-		count+=1
+		no_user+=1
 		print filename
 		t = path+'/'+filename+'/train.csv'
 		splitRatio = .5
 		dataset = loadCsv(t)
-		trainingSet, testSet = splitDataset(dataset,number)
-		number+=20
-		#testSet = testSet + test_nega
+		trainingSet, testSet = splitDataset(dataset,splitRatio)
+		m = 'test_negative.csv'
+		test_nega = loadCsv(m)
+		testSet = testSet + test_nega
 		trainset_copy = trainingSet
 		test_copy = testSet
 
@@ -201,12 +200,13 @@ def main():
 		acc_NB = getAccuracy1(testSet, predictions)
 		min1=min(min1,acc_NB)
 		max1=max(max1,acc_NB)
+		average[0]+=acc_NB
 
 		#print "accuracy_simpleNB= " + str(acc_NB)
-		results[0]+=acc_NB
+		
 		train_set = convert_float(trainset_copy)
 		labels_train = get_labels(trainset_copy)
-
+		
 		test_set = convert_float(test_copy)
 		#testSet = testSet + test_negative
 		labels_test = get_labels(test_copy)
@@ -222,9 +222,10 @@ def main():
 		a = clf.predict_proba(test_set)
 		acc_svm = getAccuracy(results_SVM,labels_test)
 		#print "accuracy_svm= " + str(acc_svm)
-		results[1]+=acc_svm
+		
 		min2=min(min2,acc_svm)
 		max2=max(max2,acc_svm)
+		average[1]+=acc_svm
 		#KNN
 
 		neigh = KNeighborsClassifier(n_neighbors=3)
@@ -233,7 +234,7 @@ def main():
 		b = neigh.predict_proba(test_set)
 		acc_knn = getAccuracy(results_KNN,labels_test)
 		#print "accuracy_knn= " + str(acc_knn)
-		results[2]+=acc_knn
+		average[2]+=acc_knn
 		min3=min(min3,acc_knn)
 		max3=max(max3,acc_knn)
 		#gausianNB
@@ -244,7 +245,7 @@ def main():
 		c = clf.predict_proba(test_set)
 		acc_gausNB = getAccuracy(results_GausianNB,labels_test)
 		#print "accuracy_gausNB= " + str(acc_gausNB)
-		results[3]+=acc_gausNB
+		average[3]+=acc_gausNB
 		min4=min(min4,acc_gausNB)
 		max4=max(max4,acc_gausNB)
 		#BernoiliNB
@@ -255,7 +256,7 @@ def main():
 		d = clf.predict_proba(test_set)
 		acc_BernoNB = getAccuracy(results_BernoulliNB,labels_test)
 		#print "accuracy_bernoNB= " + str(acc_BernoNB)
-		results[4]+=acc_BernoNB
+		average[4]+=acc_BernoNB
 		min5=min(min5,acc_BernoNB)
 		max5=max(max5,acc_BernoNB)
 
@@ -267,7 +268,7 @@ def main():
 		e =  clf.predict_proba(test_set)
 		acc_random_F = getAccuracy(results_randomforest,labels_test)
 		#print "accuracy_random_forest= " + str(acc_random_F)
-		results[5]+=acc_random_F
+		average[5]+=acc_random_F
 		min6=min(min6,acc_random_F)
 		max6=max(max6,acc_random_F)
 		#print "-------------\n"
@@ -310,12 +311,12 @@ def main():
 		print('Accuracy: {0}%').format(accuracy) '''
 	
 	t = open('remove_one4.txt','a')
-	t.write(str(min1)+" , " + str(max1)+'\n')
-	t.write(str(min2)+" , " + str(max2)+'\n')
-	t.write(str(min3)+" , " + str(max3)+'\n')
-	t.write(str(min4)+" , " + str(max4)+'\n')
-	t.write(str(min5)+" , " + str(max5)+'\n')
-	t.write(str(min6)+" , " + str(max6)+'\n')
+	t.write(str(min1)+" , " + str(max1)+" , " + str(average[0]/float(no_user))+'\n')
+	t.write(str(min2)+" , " + str(max2)+" , " + str(average[1]/float(no_user))+'\n')
+	t.write(str(min3)+" , " + str(max3)+" , " + str(average[2]/float(no_user))+'\n')
+	t.write(str(min4)+" , " + str(max4)+" , " + str(average[3]/float(no_user))+'\n')
+	t.write(str(min5)+" , " + str(max5)+" , " + str(average[4]/float(no_user))+'\n')
+	t.write(str(min6)+" , " + str(max6)+" , " + str(average[0]/float(no_user))+'\n')
 
 	#plt.xticks(x, LABELS) 	
 	#plt.show()
