@@ -1,3 +1,4 @@
+# to get the min,max,average accuracy of all the classifers used till now and write the results in text file namely remove_one3.txt
 import csv
 import random
 import math
@@ -316,7 +317,7 @@ def main():
 	t.write(str(min3)+" , " + str(max3)+" , " + str(average[2]/float(no_user))+'\n')
 	t.write(str(min4)+" , " + str(max4)+" , " + str(average[3]/float(no_user))+'\n')
 	t.write(str(min5)+" , " + str(max5)+" , " + str(average[4]/float(no_user))+'\n')
-	t.write(str(min6)+" , " + str(max6)+" , " + str(average[0]/float(no_user))+'\n')
+	t.write(str(min6)+" , " + str(max6)+" , " + str(average[5]/float(no_user))+'\n')
 
 	#plt.xticks(x, LABELS) 	
 	#plt.show()

@@ -1,3 +1,5 @@
+# to get the data for number of lines v/s accuracy remove_one3.txt
+
 import csv
 import random
 import math
