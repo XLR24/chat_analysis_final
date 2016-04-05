@@ -1,3 +1,6 @@
+# divides the negative dataset on a per feature basis and combine in a new file with the old data
+# inclusion of single features only
+
 import csv
 import sys
 import os
