@@ -11,7 +11,10 @@ from sklearn.naive_bayes import GaussianNB
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.naive_bayes import BernoulliNB
 from sklearn.ensemble import RandomForestClassifier
-
+"""
+plot graphs by taking one_one feature and than calculating its accuracy
+results are written in remove_one1.txt
+"""
 def loadCsv(filename):
 	lines = csv.reader(open(filename, "rb"))
 	dataset = list(lines)

@@ -1,4 +1,6 @@
-
+"""
+This file plot the result of combining different ml algorithms for the training and testing set obtained .At first all ml algorithms are trained on a dataset which consiist of positive as well as negative dataset than its probablity score is taken and used for the five different type of estimation or ways of combining.Results are written in combine_ml.txt.
+"""
 import csv
 import random
 import math
