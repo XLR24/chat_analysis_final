@@ -1,3 +1,5 @@
+# to get the previous frequency distribution of the file
+
 from collections import defaultdict
 import csv
 import os

@@ -1,4 +1,4 @@
-#filtering the chat
+#to extract the uppercase and lowercase ratio of letters of a line
 import csv
 import os
 import sys

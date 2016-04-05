@@ -1,3 +1,4 @@
+# to incorporate the previously used individual features 
 from collections import defaultdict
 import os
 import sys

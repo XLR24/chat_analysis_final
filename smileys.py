@@ -1,3 +1,4 @@
+#to extract the number of smileys in a line
 import csv
 import os
 import sys

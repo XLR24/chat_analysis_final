@@ -1,4 +1,4 @@
-#filtering the chat
+#to extract the number of punctuation in a line
 import csv
 import os
 import sys

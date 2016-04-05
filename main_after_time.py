@@ -1,5 +1,5 @@
 #!/usr/bin/python
-#Things to extract
+# to incorporate the writing speed feature of the indivuduals
 import csv
 from process_time_chat import time_chat_android
 from process_time_chat1 import time_chat_windows

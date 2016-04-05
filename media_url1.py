@@ -1,3 +1,4 @@
+#To count the number of media and hyperlinks exchanged in a line
 import os
 import sys
 import csv

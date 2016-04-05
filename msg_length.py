@@ -1,4 +1,4 @@
-
+#to extract the length of the message a user generally types
 import csv
 import os
 import sys
