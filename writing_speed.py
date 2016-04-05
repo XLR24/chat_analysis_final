@@ -1,4 +1,4 @@
-#answer_time
+#writing_spped of android chat
 import os
 import sys
 from datetime import datetime

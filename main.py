@@ -26,11 +26,13 @@ import os
 #take file inp
 
 path = './chats_process'
-
+""" This file extracts the features from the chats and write it in csv file.
+	Different file containing diff features code are called from this file.
+"""
 for filename in os.listdir(path):
 		
 	#f = open('./raw/'+filename, 'r')
-	
+	#extract username using file name
 	filename=filename.split("_")
 	first=filename[0]
 	second=filename[1]
@@ -43,7 +45,8 @@ for filename in os.listdir(path):
 	if not os.path.exists('./chats_process/'+str(first)+'_'+str(second)+'/'):
 		os.makedirs('./chats_process/'+first+'_'+second+'/')		
 
-	'''	
+	'''
+	#csv file in which result is written	
 	t=open('./chats_process/'+str(first)+'_'+str(second)+'/'+'training_set_1.csv', 'w')
 	n=open('./chats_process/'+str(first)+'_'+str(second)+'/'+'training_set_2.csv', 'w')
 
@@ -65,6 +68,7 @@ for filename in os.listdir(path):
 
 
 	i=1
+	#initially a column is written in csv file so that next column can be appended 
 	while i<5000:
 		c.writerow([i])
 		d.writerow([i])
@@ -81,7 +85,7 @@ for filename in os.listdir(path):
 	
 	#first feature to extract ////""average words per line""
 	average_word('./chats_process/'+str(first)+'_'+str(second)+'/'+first+'.txt',str(first),str(second),1)
-	#creates a text file named number_word_1 which contains number of word in each line.
+	#creates a text file named number_word_1 which contains number of word in each line inside the folder chats_process/user1_user2.
 	average_word('./chats_process/'+str(first)+'_'+str(second)+'/'+second+'.txt',str(first),str(second),2)
 	#print "average_word_feature extracted"
 	
@@ -160,6 +164,6 @@ for filename in os.listdir(path):
 	#print "overall_done"
 
 
-process_time()
-#main_after_time()
+process_time()# response time
+#main_after_time()#for features such as writing speed 
 

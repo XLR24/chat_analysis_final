@@ -1,4 +1,4 @@
-#filtering the chat
+#for obtaining response time of chat in windows files
 import os
 import sys
 from datetime import datetime
